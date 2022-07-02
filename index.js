@@ -1,6 +1,5 @@
 const axios = require('axios')
 
-
 async function brigeLogin() {
     let user = "BankinUser";
     let password = "12345678";
