@@ -34,12 +34,16 @@ async function brigeLogin() {
 
 async function getAccessToken() {
   const refreshToken = await brigeLogin()
-  const res = await axios.post(`${API_URL}/token`, {
-    grant_type: 'refresh_token',
-    refresh_token: refreshToken.refresh_token,
-  })
+  try {
+    const res = await axios.post(`${API_URL}/token`, {
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken.refresh_token,
+    })
 
-  return res.data
+    return res.data
+  } catch (error) {
+    throw new Error(err.response.error)
+  }
 }
 
 async function listAccounts() {
@@ -98,7 +102,7 @@ async function getTransaction(accountNumber, accesToken) {
       }
     }
     return transactions
-  } catch (e) {
+  } catch (error) {
     return []
   }
 }
