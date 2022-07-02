@@ -13,19 +13,23 @@ const client = {
 }
 
 async function brigeLogin() {
-  const res = await axios.post(
-    `${API_URL}/login`,
-    {
-      ...login,
-    },
-    {
-      auth: {
-        username: client.user,
-        password: client.password,
+  try {
+    const res = await axios.post(
+      `${API_URL}/login`,
+      {
+        ...login,
       },
-    },
-  )
-  return res.data
+      {
+        auth: {
+          username: client.user,
+          password: client.password,
+        },
+      },
+    )
+    return res.data
+  } catch (error) {
+    throw new Error(error.response.data)
+  }
 }
 
 async function getAccessToken() {
